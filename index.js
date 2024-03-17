@@ -47,7 +47,7 @@ app.use(passport.session());
 // Routes
 app.use("/api/v1", userRoutes);
 app.use("/auth", googleAuthRoutes);
-app.get('/', (req, res) => {
+app.post('/', (req, res) => {
     // Send a response with a status code of 200 (OK) and a JSON object
     res.status(200).json({ message: 'Hello, world!' });
 });
