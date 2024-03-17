@@ -24,8 +24,8 @@ exports.registerUser = catchAsyncErrors(async (req, res, next) => {
 
 // Login User
 exports.loginUser = catchAsyncErrors(async (req, res, next) => {
-    const { body } = req
-    const { email, password } = body;
+    // const { body } = req
+    const { email, password } = req.body;
     // Checking if user has given password and email both
     if (!email || !password) {
         return next(new ErrorHandler("Please Enter Email & Password", 400));

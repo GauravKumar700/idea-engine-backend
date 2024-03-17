@@ -21,10 +21,8 @@ router
     .route("/generatepdf")
     .post(isAuthenticatedUser, createPdf);
 
-//////google authentication
-
+// google authentication
 // router.get('/google', passport.authenticate('google', { scope: ['profile','email'] }))
-
 
 // router.get(
 //     '/google/callback',
@@ -33,8 +31,5 @@ router
 //     res.redirect('/login')
 //     }
 // )
-
-
-
 
 module.exports = router;
