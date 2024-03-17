@@ -47,7 +47,6 @@ app.use(passport.session());
 // Routes
 app.use("/api/v1", userRoutes);
 app.use("/auth", googleAuthRoutes);
-app.post('/', ("HIi"))
 
 // Middleware for Errors
 app.use(errorMiddleware);
