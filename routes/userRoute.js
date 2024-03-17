@@ -11,7 +11,7 @@ router
 
 router
     .route("/login")
-    .post(loginUser);
+    .post("Hii");
 
 router
     .route("/logout")
