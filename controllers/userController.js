@@ -7,19 +7,22 @@ const PDFDocument = require('pdfkit');
 // Register a User
 exports.registerUser = catchAsyncErrors(async (req, res, next) => {
     const { name, email, password } = req.body;
+    try {
+        const users = await User.findOne({ email }).select("+password");
 
-    const users = await User.findOne({ email }).select("+password");
+        if (users) {
+            return next(new ErrorHandler("User is already exist please login", 401));
+        }
 
-    if (users) {
-        return next(new ErrorHandler("User is already exist please login", 401));
+        const user = await User.create({
+            name: name,
+            email: email,
+            password: password,
+        });
+        sendToken(user, 201, res);
+    } catch (error) {
+        return next(new ErrorHandler("Failed to Sign up"))
     }
-
-    const user = await User.create({
-        name: name,
-        email: email,
-        password: password,
-    });
-    sendToken(user, 201, res);
 });
 
 // Login User
