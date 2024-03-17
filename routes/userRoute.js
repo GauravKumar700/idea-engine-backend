@@ -11,7 +11,9 @@ router
 
 router
     .route("/login")
-    .post("Hii");
+    .post((req, res) => {
+        res.send("Hii")
+    });
 
 router
     .route("/logout")
