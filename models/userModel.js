@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema({
     googleId: {
         type: String,
         required: false,
-      },
+    },
     name: {
         type: String,
         required: [true, "Please Enter Your Name"],
@@ -37,8 +37,8 @@ const userSchema = new mongoose.Schema({
 });
 
 // password hashing
-userSchema.pre("save", async function(next) {
-    if(!this.isModified("password")){
+userSchema.pre("save", async function (next) {
+    if (!this.isModified("password")) {
         next();
     }
     this.password = await bcrypt.hash(this.password, 10);
@@ -46,13 +46,13 @@ userSchema.pre("save", async function(next) {
 
 // JWT Token
 userSchema.methods.getJWTToken = function () {
-    return jwt.sign({id: this._id}, process.env.JWT_SECRET, {
+    return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRE,
     });
 };
 
 // compare Password
-userSchema.methods.comparePassword = async function(enteredPassword){
+userSchema.methods.comparePassword = async function (enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.password);
 }
 
