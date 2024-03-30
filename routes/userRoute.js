@@ -18,8 +18,9 @@ router
     .get(logout);
 
 router
-    .route("/generatepdf")
-    .post(isAuthenticatedUser, createPdf);
+    .route("/generatepdf").post(createPdf);
+    // .post(isAuthenticatedUser, createPdf);
+    
 
 // google authentication
 // router.get('/google', passport.authenticate('google', { scope: ['profile','email'] }))
