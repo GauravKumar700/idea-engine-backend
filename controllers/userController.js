@@ -117,6 +117,7 @@ exports.createPdf = catchAsyncErrors(async (req, res, next) => {
         doc.fontSize(21)
         doc.text("Blueprint According to your Response")
         doc.moveDown()
+        doc.fontSize(12)
         doc.text(text)
 
         // Finalize the PDF
