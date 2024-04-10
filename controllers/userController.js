@@ -92,12 +92,10 @@ exports.createPdf = catchAsyncErrors(async (req, res, next) => {
             const questionText = questions[i] ? questions[i] : 'N/A';
             const answerText = answers[i] ? answers[i] : 'N/A';
             prompt += `Question: ${questionText}\nAnswer: ${answerText}\n`
-            // doc.text(`${i + 1}. ${questionText}`);
-            // doc.moveDown();
-            // doc.text(`${"Ans"}. ${answerText}`);
-            // doc.moveDown();
         }
-        prompt += "\nthis is the question and answer with a client can you generate a blueprint according to his requirement"
+
+        prompt += "\nthis is the questions and answers with a client you go through it and provide the steps or say blueprint in very detailed way he needs to overcome his weakness and achieve the goals he want"
+
         const text = await answer(prompt)
         // Create a PDF document
         const doc = new PDFDocument();
