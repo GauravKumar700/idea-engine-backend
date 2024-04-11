@@ -94,7 +94,7 @@ exports.createPdf = catchAsyncErrors(async (req, res, next) => {
             prompt += `Question: ${questionText}\nAnswer: ${answerText}\n`
         }
 
-        prompt += "\nthis is the questions and answers done with a client who want to build a buisness and grow you go through it and provide and explain the steps or blueprint in very detailed way as larger you can. also provide the solution of his weakness and how he can overcome it explain it elaboratly as much you can."
+        prompt += "\nthis is the questions and answers done with a client who want to build a buisness and grow. you go through it and provide and explain the steps or blueprint in very detailed way in about 5 pages. also provide the solution of his weakness and how he can overcome it explain it elaboratly as much you can."
 
         const text = await answer(prompt)
         // Create a PDF document
