@@ -18,8 +18,8 @@ router
     .get(logout);
 
 router
-    .route("/generatepdf").post(createPdf);
-    // .post(isAuthenticatedUser, createPdf);
+    .route("/generatepdf")
+    .post(isAuthenticatedUser, createPdf);
     
 
 // google authentication
