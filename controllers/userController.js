@@ -221,14 +221,11 @@ exports.createPdf = catchAsyncErrors(async (req, res, next) => {
         doc.text(digitalText)
         doc.moveDown()
 
-        // let { influencer } = domain
-        // doc.fontSize(21)
-        // doc.text("Process for Influencer Marketing").moveDown()
-        // let influencerPrompt = ``
-        // let influencerText = await answer(influencerPrompt)
-        // doc.fontSize(12)
-        // doc.text(influencerText)
-        // doc.moveDown()
+        let { influencer } = domain
+        doc.fontSize(21).text("Process for Influencer Marketing").moveDown()
+        let influencerPrompt = `${influencer['What sets your influencer marketing business apart from competitors?']} sets my influencer marketing business apart from competitors. ${influencer['How do you plan to establish and communicate your brand identity to resonate with your target audience?']} is my plan to establish and communicate my brand identity to resonate with my target audience. ${influencer['What strategies will you use to build relationships with influencers in your chosen niche?']} strategies we will use to build relationships with influencers in our chosen niche. By ${influencer['How will you tailor your service packages to meet the unique needs and objectives of your clients?']} we will tailor our service packages to meet the unique needs and objectives of our clients. ${influencer['What methods will you use to reach out to brands and pitch your services effectively?']} methods will use to reach out to brands and pitch our services effectively. ${influencer["How do you plan to coordinate with influencers to create engaging content that aligns with brands' objectives?"]} is my plan to coordinate with influencers to create engaging content that aligns with brands objectives. ${influencer['What metrics will you use to monitor campaign performance and track ROI for your clients?']} metrics will use to monitor campaign performance and track ROI for our clients. By ${influencer['How will you stay updated on industry trends, platform algorithms, and best practices in influencer marketing?']} we will stay updated on industry trends, platform algorithms, and best practices in influencer marketing. ${influencer['What strategies do you have in place to adapt and evolve your business as the influencer marketing landscape changes?']} strategies we have in place to adapt and evolve your business as the influencer marketing landscape changes. ${influencer['What strategies will you implement to stay ahead of emerging trends and innovations in influencer marketing?']} strategies we will implement to stay ahead of emerging trends and innovations in influencer marketing.`
+        let influencerText = await answer(influencerPrompt)
+        doc.fontSize(12).text(influencerText).moveDown()
 
         let { content } = domain
         doc.fontSize(21)
