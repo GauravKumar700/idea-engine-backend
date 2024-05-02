@@ -84,30 +84,6 @@ const answer = async (question) => {
     }
 }
 
-// const generatePrompt = async (questions, answers) => {
-//     try {
-//         let buisnessName = answers[questions.indexOf('business name')]
-//         let buisnessStage = answers[questions.indexOf('business stage')]
-//         let buisnessDescription = answers[questions.indexOf('business description')]
-//         let numberOfEmployees = answers[questions.indexOf('Number of employees')]
-//         let buisnessOffers = answers[questions.indexOf('Do you offer a product or service?')]
-//         let customerGetMode = answers[questions.indexOf('How can customer get your product or service?')]
-//         let regionOfService = answers[questions.indexOf('Where do you serve your customers?')]
-//         let productServiceName = answers[questions.indexOf('Product or Service Name')]
-//         let productServiceDescription = answers[questions.indexOf('Product or Service Description')]
-//         let intialInvestment = answers[questions.indexOf('Total Initial Investment')]
-//         let firstYearRevenue = answers[questions.indexOf('Expected First Year Revenue')]
-//         let rateOfGrowthPerYear = answers[questions.indexOf('How much do you expect your revenue to grow each year?')]
-//         let yearlyBuisnessOperatingCost = answers[questions.indexOf('Yearly Business Operations Cost')]
-
-//         let prompt = `Create an end to end business plan as well as guidance plan that helps me create a business by the name of ${buisnessName}.It is in the stage of ${buisnessStage}.${buisnessName} is suppose to be ${buisnessDescription}.At this stage our comapny contains ${numberOfEmployees} number of employees. ${buisnessName} offers ${buisnessOffers}. A customer gets my ${buisnessOffers} from ${customerGetMode} mode. We Serve our customers in ${regionOfService}. Our ${buisnessOffers} name is ${productServiceName}. ${productServiceName} is suppose to be ${productServiceDescription}. Our Intial investment is ${intialInvestment}.Our expected first year revenue is ${firstYearRevenue} And i want to grow my revenue at the rate of ${rateOfGrowthPerYear} Our buisness yearly operating buisness cost is ${yearlyBuisnessOperatingCost}.`
-
-//         return prompt
-//     } catch (error) {
-//         window.alert(error)
-//     }
-// }
-
 // Creating PDF
 exports.generatePdf = catchAsyncErrors(async (req, res, next) => {
     try {
@@ -132,11 +108,20 @@ exports.generatePdf = catchAsyncErrors(async (req, res, next) => {
     }
 });
 
-exports.generateResponse = catchAsyncErrors(async (req, res, next) => {
+exports.generateResponse = catchAsyncErrors(async (req, res) => {
     try {
         const { tPrompt } = req.body;
-        const text = await answer(tPrompt)
-        res.status(200).json(text);
+        const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+        const result = await model.generateContent(tPrompt);
+        // const response = await result.response;
+        const gemRes = result.response;
+        const text = gemRes.text();
+        // const text = await answer(tPrompt)
+        if (text) {
+            res.status(200).json(text);
+        } else {
+            res.status(404).json("Text is empty")
+        }
     } catch (error) {
         // Handle errors
         console.error(error);
