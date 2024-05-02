@@ -96,7 +96,55 @@ exports.generatePdf = catchAsyncErrors(async (req, res, next) => {
         res.setHeader('Content-Type', 'application/pdf');
         // Pipe the PDF content to the response
         doc.pipe(res);
+
         doc.fontSize(21).text("Blueprint According to your Response").moveDown()
+        doc.fontSize(12).text(text.commonText).moveDown()
+
+        doc.fontSize(18).text("Explaining the Executive summary statement").moveDown()
+        doc.fontSize(12).text(text.executiveText).moveDown()
+
+        doc.fontSize(18).text("Explaining the detail about the Market Analysis").moveDown()
+        doc.fontSize(12).text(text.marketText).moveDown()
+
+        doc.fontSize(18).text("Explaining the detail about the Product Description").moveDown()
+        doc.fontSize(12).text(text.productText).moveDown()
+
+        doc.fontSize(18).text("Explaining the detail about the Business Model").moveDown()
+        doc.fontSize(12).text(text.buisnessText).moveDown()
+
+        doc.fontSize(18).text("Explaining the detail about the Financial Plan").moveDown()
+        doc.fontSize(12).text(text.financialText).moveDown()
+
+        doc.fontSize(18).text("Explaining the detail about the Marketing and Sales Strategy").moveDown()
+        doc.fontSize(12).text(text.marketingText).moveDown()
+
+        doc.fontSize(18).text("Explaining the detail about the Guidance Plan").moveDown()
+        doc.fontSize(12).text(text.guidanceText).moveDown()
+
+        doc.fontSize(18).text("Explaining the detail about the Mission Statement").moveDown()
+        doc.fontSize(12).text(text.missionText).moveDown()
+
+        doc.fontSize(18).text("Explaining the detail about the Vision Statement").moveDown()
+        doc.fontSize(12).text(text.visionText).moveDown()
+
+        doc.fontSize(18).text("Analysis on Technology & Innovation").moveDown()
+        doc.fontSize(12).text(text.technologyText).moveDown()
+
+        doc.fontSize(18).text("Analysis on Digital Marketing").moveDown()
+        doc.fontSize(12).text(text.digitalText).moveDown()
+
+        doc.fontSize(18).text("Analysis on Influencer Marketing").moveDown()
+        doc.fontSize(12).text(text.influencerText).moveDown()
+
+        doc.fontSize(18).text("Analysis on Content Production").moveDown()
+        doc.fontSize(12).text(text.contentText).moveDown()
+
+        doc.fontSize(18).text("Analysis on Public Relation").moveDown()
+        doc.fontSize(12).text(text.publicRelationText).moveDown()
+
+        doc.fontSize(18).text("Analysis on Branding & Designing").moveDown()
+        doc.fontSize(12).text(text.brandingText).moveDown()
+
         doc.fontSize(12).text(text).moveDown()
 
         // Finalize the PDF
