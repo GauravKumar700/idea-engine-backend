@@ -113,15 +113,9 @@ exports.generateResponse = catchAsyncErrors(async (req, res) => {
         const { tPrompt } = req.body;
         const model = genAI.getGenerativeModel({ model: "gemini-pro" });
         const result = await model.generateContent(tPrompt);
-        // const response = await result.response;
         const gemRes = result.response;
         const text = gemRes.text();
-        // const text = await answer(tPrompt)
-        if (text) {
-            res.status(200).json(text);
-        } else {
-            res.status(404).json("Text is empty")
-        }
+        res.status(200).json(text);
     } catch (error) {
         // Handle errors
         console.error(error);
