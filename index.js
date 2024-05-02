@@ -3,9 +3,7 @@ const dotenv = require("dotenv");
 const connectDatabase = require("./db.js");
 const cors = require("cors");
 
-app.use(cors({
-    origin: "https://idea-engine-backend.vercel.app",
-}));
+app.use(cors());
 //Handling Uncaught Exception
 process.on("uncaughtException", (err) => {
     console.log(`Error: ${err.message}`);
