@@ -1,5 +1,5 @@
 const express = require("express");
-const { registerUser, loginUser, logout, createPdf } = require("../controllers/userController");
+const { registerUser, loginUser, logout, generateResponse, generatePdf } = require("../controllers/userController");
 const passport = require("passport");
 const { isAuthenticatedUser } = require("../middleware/auth");
 
@@ -17,10 +17,11 @@ router
     .route("/logout")
     .get(logout);
 
-router
-    .route("/generatepdf")
-    .post(isAuthenticatedUser, createPdf);
-    
+router.route("/generateresponse").post(generateResponse);
+// .post(isAuthenticatedUser, createPdf);
+
+router.route("/generatepdf").post(generatePdf)
+
 
 // google authentication
 // router.get('/google', passport.authenticate('google', { scope: ['profile','email'] }))
