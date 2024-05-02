@@ -14,10 +14,7 @@ const googleAuthRoutes = require("./routes/googleAuthRoute");
 const app = express();
 
 app.use(cors({
-    origin: '*',
-    methods: '*',
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true,
+    origin: "https://idea-engine-backend.vercel.app",
 }));
 
 // Middleware

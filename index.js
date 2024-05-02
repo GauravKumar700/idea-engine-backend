@@ -3,6 +3,9 @@ const dotenv = require("dotenv");
 const connectDatabase = require("./db.js");
 const cors = require("cors");
 
+app.use(cors({
+    origin: "https://idea-engine-backend.vercel.app",
+}));
 //Handling Uncaught Exception
 process.on("uncaughtException", (err) => {
     console.log(`Error: ${err.message}`);
@@ -16,7 +19,6 @@ dotenv.config({ path: "config/config.env" });
 //connecting to database
 connectDatabase();
 // require('./config/database');
-app.use(cors());
 const port = process.env.PORT || 8080;
 
 const server = app.listen(port, () => {
