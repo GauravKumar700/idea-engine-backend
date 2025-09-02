@@ -74,25 +74,26 @@ exports.logout = catchAsyncErrors(async (req, res, next) => {
 const genAI = new GoogleGenerativeAI("AIzaSyDr4sqQlx23JlaNuQgPIp7uTd3v-p8txlY");
 const answer = async (question) => {
     try {
-        // For text-only input, use the gemini-pro model
-        const model = genAI.getGenerativeModel({ model: "gemini-pro" });
-        const prompt = question
-        const result = await model.generateContent(prompt);
-        // const response = await result.response;
-        const res = result.response;
-        const text = res.text();
-        // console.log(text);
-        return text
-
-        const response = await ai.models.generateContent({
-            model: "gemini-2.5-flash",
-            contents: "Explain how AI works in a few words",
+        const response = await fetch("/api/generateResponse", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ tPrompt: question }),
         });
-        console.log(response.text);
+
+        if (!response.ok) {
+            throw new Error("Failed to fetch response from server");
+        }
+
+        const data = await response.json();
+        return data.text;
     } catch (error) {
-        window.alert(error)
+        console.error(error);
+        window.alert(error.message);
     }
-}
+};
+
 
 // Creating PDF
 exports.generatePdf = catchAsyncErrors(async (req, res, next) => {
@@ -166,16 +167,19 @@ exports.generatePdf = catchAsyncErrors(async (req, res, next) => {
     }
 });
 
-exports.generateResponse = catchAsyncErrors(async (req, res) => {
+exports.generateResponse = catchAsyncErrors(async (req, res, next) => {
     try {
         const { tPrompt } = req.body;
-        const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+
+        // Use gemini-2.5-flash model
+        const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
         const result = await model.generateContent(tPrompt);
+
         const gemRes = result.response;
         const text = gemRes.text();
-        res.status(200).json(text);
+
+        res.status(200).json({ text }); // send as JSON
     } catch (error) {
-        // Handle errors
         console.error(error);
         return next(error);
     }
