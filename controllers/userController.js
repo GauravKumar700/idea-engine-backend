@@ -4,10 +4,13 @@ const User = require("../models/userModel");
 const sendToken = require("../utils/jwtToken");
 const PDFDocument = require('pdfkit');
 const { GoogleGenerativeAI } = require("@google/generative-ai");
+// import { GoogleGenAI } from "@google/genai";
+const { GoogleGenAI } = require("@google/genai")
 
 // Register a User
 exports.registerUser = catchAsyncErrors(async (req, res, next) => {
     const { name, email, password } = req.body;
+    // console.log(name, email, password)
     try {
         const users = await User.findOne({ email }).select("+password");
 
@@ -67,7 +70,8 @@ exports.logout = catchAsyncErrors(async (req, res, next) => {
     }
 });
 
-const genAI = new GoogleGenerativeAI("AIzaSyAM1T6li4pgjil1q55wbC_UvYq-cbNJs2I");
+// const genAI = new GoogleGenerativeAI("AIzaSyAM1T6li4pgjil1q55wbC_UvYq-cbNJs2I");
+const genAI = new GoogleGenerativeAI("AIzaSyDr4sqQlx23JlaNuQgPIp7uTd3v-p8txlY");
 const answer = async (question) => {
     try {
         // For text-only input, use the gemini-pro model
@@ -79,6 +83,12 @@ const answer = async (question) => {
         const text = res.text();
         // console.log(text);
         return text
+
+        const response = await ai.models.generateContent({
+            model: "gemini-2.5-flash",
+            contents: "Explain how AI works in a few words",
+        });
+        console.log(response.text);
     } catch (error) {
         window.alert(error)
     }
